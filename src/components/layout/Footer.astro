@@ -1,0 +1,96 @@
+---
+import Container from './Container.astro';
+import Icon from '../ui/Icon.astro';
+
+const currentYear = new Date().getFullYear();
+
+const contactInfo = [
+  { icon: 'location_on', text: 'Puerto Madero, Buenos Aires' },
+  { icon: 'mail', text: 'contacto@estudioagc.com', href: 'mailto:contacto@estudioagc.com' },
+  { icon: 'phone', text: '+54 11 4321-9876', href: 'tel:+541143219876' },
+];
+
+const quickLinks = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Servicios', href: '/#servicios' },
+  { label: 'Nosotros', href: '/#nosotros' },
+  { label: 'Contacto', href: '/#contacto' },
+];
+
+const services = [
+  { label: 'Auditoría y Control', href: '/#servicios' },
+  { label: 'Consultoría Estratégica', href: '/#servicios' },
+  { label: 'Área Tributaria', href: '/#servicios' },
+];
+---
+
+<footer class="bg-primary-900 text-white">
+  <Container>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 py-16">
+      <!-- Brand -->
+      <div class="flex flex-col gap-4">
+        <span class="text-xl font-bold tracking-tight">Estudio AGC</span>
+        <p class="text-sm text-white/70 leading-relaxed">
+          Soluciones contables profesionales para empresas que buscan claridad, cumplimiento y crecimiento.
+        </p>
+      </div>
+
+      <!-- Quick links -->
+      <div class="flex flex-col gap-4">
+        <h4 class="text-sm font-semibold uppercase tracking-wider text-white/50">Navegación</h4>
+        <ul class="flex flex-col gap-2" role="list">
+          {quickLinks.map((link) => (
+            <li>
+              <a href={link.href} class="text-sm text-white/70 hover:text-white transition-colors">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Services -->
+      <div class="flex flex-col gap-4">
+        <h4 class="text-sm font-semibold uppercase tracking-wider text-white/50">Servicios</h4>
+        <ul class="flex flex-col gap-2" role="list">
+          {services.map((s) => (
+            <li>
+              <a href={s.href} class="text-sm text-white/70 hover:text-white transition-colors">
+                {s.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="flex flex-col gap-4">
+        <h4 class="text-sm font-semibold uppercase tracking-wider text-white/50">Contacto</h4>
+        <ul class="flex flex-col gap-3" role="list">
+          {contactInfo.map((item) => (
+            <li class="flex items-start gap-2">
+              <Icon name={item.icon} size={18} class="text-white/50 mt-0.5" />
+              {item.href ? (
+                <a href={item.href} class="text-sm text-white/70 hover:text-white transition-colors">
+                  {item.text}
+                </a>
+              ) : (
+                <span class="text-sm text-white/70">{item.text}</span>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="border-t border-white/10 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-xs text-white/40">
+        &copy; {currentYear} Estudio AGC. Todos los derechos reservados.
+      </p>
+      <p class="text-xs text-white/40">
+        Contadores Públicos — Puerto Madero, Buenos Aires
+      </p>
+    </div>
+  </Container>
+</footer>

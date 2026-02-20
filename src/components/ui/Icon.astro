@@ -1,0 +1,27 @@
+---
+interface Props {
+  name: string;
+  size?: number;
+  class?: string;
+}
+
+const { name, size = 24, class: className = '' } = Astro.props;
+---
+
+<span
+  class:list={['material-symbols-outlined', 'icon', className]}
+  style={`font-size: ${size}px;`}
+  aria-hidden="true"
+>
+  {name}
+</span>
+
+<style>
+  .icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    font-variation-settings: 'wght' 300;
+  }
+</style>

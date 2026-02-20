@@ -1,0 +1,64 @@
+---
+import Container from './Container.astro';
+import Icon from '../ui/Icon.astro';
+import Button from '../ui/Button.astro';
+
+interface NavLink {
+  label: string;
+  href: string;
+}
+
+const links: NavLink[] = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Servicios', href: '/#servicios' },
+  { label: 'Nosotros', href: '/#nosotros' },
+  { label: 'Contacto', href: '/#contacto' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
+  <Container>
+    <nav class="flex items-center justify-between h-16 md:h-20" aria-label="Navegación principal">
+      <a href="/" class="flex items-center gap-2 text-primary-900 font-bold text-xl tracking-tight">
+        Estudio AGC
+      </a>
+
+      <ul class="hidden md:flex items-center gap-8" role="list">
+        {links.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class:list={[
+                'text-sm font-medium transition-colors duration-200',
+                currentPath === link.href
+                  ? 'text-primary-900'
+                  : 'text-gray-500 hover:text-primary-900',
+              ]}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <div class="hidden md:block">
+        <Button variant="primary" size="sm" href="/#contacto">
+          Consulta gratuita
+        </Button>
+      </div>
+
+      <button
+        class="md:hidden flex items-center justify-center w-10 h-10 text-gray-700"
+        aria-label="Abrir menú de navegación"
+        data-mobile-menu-toggle
+      >
+        <Icon name="menu" size={24} />
+      </button>
+    </nav>
+  </Container>
+</header>
+
+<!-- Spacer for fixed navbar -->
+<div class="h-16 md:h-20" aria-hidden="true"></div>

@@ -1,0 +1,58 @@
+---
+import Icon from './Icon.astro';
+import Badge from './Badge.astro';
+
+interface Props {
+  icon?: string;
+  title: string;
+  description?: string;
+  href?: string;
+  badge?: string;
+  class?: string;
+}
+
+const {
+  icon,
+  title,
+  description,
+  href,
+  badge,
+  class: className = '',
+} = Astro.props;
+---
+
+<div
+  class:list={[
+    'group relative flex flex-col gap-4 rounded-DEFAULT bg-white p-6 border border-gray-200',
+    'transition-all duration-300 hover:shadow-md hover:border-primary-300',
+    className,
+  ]}
+>
+  {badge && (
+    <div class="absolute top-4 right-4">
+      <Badge variant="new">{badge}</Badge>
+    </div>
+  )}
+
+  {icon && (
+    <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary-100">
+      <Icon name={icon} size={24} class="text-primary-900" />
+    </div>
+  )}
+
+  <div class="flex flex-col gap-2">
+    <h3 class="text-h3 font-medium text-gray-800">{title}</h3>
+    {description && <p class="text-base text-gray-500 leading-relaxed">{description}</p>}
+    <slot />
+  </div>
+
+  {href && (
+    <a
+      href={href}
+      class="mt-auto inline-flex items-center gap-1.5 text-body-sm font-medium text-primary-900 hover:underline"
+    >
+      Explorar servicio
+      <Icon name="arrow_forward" size={16} />
+    </a>
+  )}
+</div>

@@ -1,0 +1,59 @@
+---
+import Icon from './Icon.astro';
+
+type Variant = 'primary' | 'outline' | 'ghost';
+
+interface Props {
+  variant?: Variant;
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  icon?: string;
+  iconPosition?: 'left' | 'right';
+  disabled?: boolean;
+  type?: 'button' | 'submit' | 'reset';
+  class?: string;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  icon,
+  iconPosition = 'left',
+  disabled = false,
+  type = 'button',
+  class: className = '',
+} = Astro.props;
+
+const Tag = href ? 'a' : 'button';
+
+const baseClasses =
+  'inline-flex items-center justify-center gap-2 font-medium transition-all duration-200 cursor-pointer rounded-DEFAULT focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-900';
+
+const sizeClasses: Record<string, string> = {
+  sm: 'px-3 py-1.5 text-body-sm',
+  md: 'px-5 py-2.5 text-base',
+  lg: 'px-7 py-3.5 text-body-lg',
+};
+
+const variantClasses: Record<Variant, string> = {
+  primary:
+    'bg-primary-900 text-white hover:bg-primary-800 active:bg-primary-700 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed',
+  outline:
+    'border border-primary-900 text-primary-900 hover:bg-primary-100 active:bg-primary-200 disabled:border-gray-300 disabled:text-gray-400 disabled:cursor-not-allowed',
+  ghost:
+    'text-primary-900 hover:bg-primary-100 active:bg-primary-200 disabled:text-gray-400 disabled:cursor-not-allowed',
+};
+
+const classes = [baseClasses, sizeClasses[size], variantClasses[variant], className].join(' ');
+---
+
+<Tag
+  class={classes}
+  {...href ? { href } : { type, disabled }}
+  {...Astro.props['aria-label'] ? { 'aria-label': Astro.props['aria-label'] } : {}}
+>
+  {icon && iconPosition === 'left' && <Icon name={icon} size={size === 'sm' ? 18 : 20} />}
+  <slot />
+  {icon && iconPosition === 'right' && <Icon name={icon} size={size === 'sm' ? 18 : 20} />}
+</Tag>

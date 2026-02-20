@@ -1,0 +1,28 @@
+---
+type Variant = 'default' | 'new' | 'success' | 'error' | 'info';
+
+interface Props {
+  variant?: Variant;
+  class?: string;
+}
+
+const { variant = 'default', class: className = '' } = Astro.props;
+
+const variantClasses: Record<Variant, string> = {
+  default: 'bg-gray-100 text-gray-700',
+  new: 'bg-primary-900 text-white',
+  success: 'bg-emerald-50 text-success',
+  error: 'bg-red-50 text-error',
+  info: 'bg-blue-50 text-info',
+};
+---
+
+<span
+  class:list={[
+    'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wide uppercase',
+    variantClasses[variant],
+    className,
+  ]}
+>
+  <slot />
+</span>

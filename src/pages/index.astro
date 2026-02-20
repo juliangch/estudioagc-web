@@ -1,11 +1,388 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/layout/Navbar.astro';
+import MobileDrawer from '../components/layout/MobileDrawer.astro';
+import Footer from '../components/layout/Footer.astro';
+import WhatsAppFAB from '../components/layout/WhatsAppFAB.astro';
+import Container from '../components/layout/Container.astro';
+import Section from '../components/layout/Section.astro';
+import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
+import Badge from '../components/ui/Badge.astro';
+import Input from '../components/ui/Input.astro';
+import Select from '../components/ui/Select.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const stats = [
+  { value: '20+', label: 'Años de Trayectoria' },
+  { value: '500+', label: 'Clientes Activos' },
+  { value: '$2B+', label: 'Activos Auditados' },
+  { value: '100%', label: 'Efectividad Fiscal' },
+];
+
+const services = [
+  {
+    icon: 'fact_check',
+    title: 'Auditoría y Control',
+    items: [
+      'Diseño y análisis de normas de control interno para mitigar riesgos.',
+      'Certificaciones e informes profesionales con validez legal.',
+      'Preparación y auditoría de estados contables y financieros.',
+    ],
+  },
+  {
+    icon: 'query_stats',
+    title: 'Consultoría Estratégica',
+    items: [
+      'Implementación y consultoría de sistemas ERP.',
+      'Análisis de proyectos de inversión y optimización de costos.',
+      'Proyecciones financieras y elaboración de presupuestos.',
+      'Diseño de sistemas de información y análisis funcional.',
+    ],
+  },
+  {
+    icon: 'balance',
+    title: 'Área Tributaria y Defensa',
+    items: [
+      'Defensa técnica en recursos administrativos y ante el Tribunal Fiscal.',
+      'Atención especializada ante requerimientos e inspecciones.',
+      'Liquidación de impuestos nacionales, provinciales y municipales (ARCA).',
+      'Planeamiento fiscal preventivo para personas jurídicas y humanas.',
+    ],
+  },
+];
+
+const contactInfo = [
+  {
+    icon: 'mail',
+    label: 'Email',
+    value: 'contacto@estudioagc.com',
+    href: 'mailto:contacto@estudioagc.com',
+  },
+  {
+    icon: 'call',
+    label: 'Teléfono',
+    value: '+54 11 4321-9876',
+    href: 'tel:+541143219876',
+  },
+  {
+    icon: 'location_on',
+    label: 'Oficinas',
+    value: 'Av. Alicia Moreau de Justo 1500',
+    sub: 'Puerto Madero, Buenos Aires',
+  },
+];
+
+const consultaOptions = [
+  { value: 'empresa', label: 'Soy una Empresa' },
+  { value: 'individuo', label: 'Soy un Individuo' },
+];
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout>
+  <Navbar />
+  <MobileDrawer />
+
+  <main>
+    <!-- ═══════ Hero ═══════ -->
+    <Section id="inicio" class="relative bg-white overflow-hidden">
+      <div class="hero-pattern" aria-hidden="true"></div>
+
+      <Container class="relative z-10 hero-stagger flex flex-col items-center text-center gap-6">
+        <Badge variant="new">Excelencia Profesional</Badge>
+
+        <h1 class="text-display font-extrabold text-primary-900 max-w-4xl">
+          Excelencia Contable para Empresas&nbsp;e&nbsp;Individuos
+        </h1>
+
+        <p class="text-body-lg text-gray-500 max-w-2xl">
+          Soluciones estratégicas en Auditoría y Consultoría Corporativa.
+          Gestión experta en impuestos y presentaciones ante organismos de control para personas.
+        </p>
+
+        <div class="flex flex-wrap gap-4 justify-center mt-2">
+          <Button variant="primary" size="lg" href="/#servicios" icon="arrow_forward" iconPosition="right">
+            Servicios para Empresas
+          </Button>
+          <Button variant="outline" size="lg" href="/#contacto">
+            Servicios para Individuos
+          </Button>
+        </div>
+      </Container>
+
+      <Container class="relative z-10 mt-16">
+        <div
+          class="reveal grid grid-cols-2 md:grid-cols-4 gap-px rounded-xl overflow-hidden bg-primary-900 shadow-lg"
+        >
+          {stats.map((s) => (
+            <div class="flex flex-col items-center gap-1 py-8 px-4 bg-primary-900">
+              <span class="text-3xl md:text-4xl font-extrabold tracking-tight text-white">{s.value}</span>
+              <span class="text-xs md:text-sm text-white/60 font-medium text-center">{s.label}</span>
+            </div>
+          ))}
+        </div>
+      </Container>
+    </Section>
+
+    <!-- ═══════ Servicios ═══════ -->
+    <Section id="servicios">
+      <Container>
+        <div class="reveal flex flex-col gap-4 mb-14 max-w-2xl">
+          <Badge>Servicios Corporativos</Badge>
+          <h2 class="text-h1 font-bold text-gray-800">
+            Soluciones Contables y Estrategia Fiscal Integral
+          </h2>
+          <p class="text-body-lg text-gray-500">
+            Brindamos la solvencia técnica y el respaldo profesional que su empresa necesita
+            para crecer con seguridad en el marco normativo actual.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {services.map((service, i) => (
+            <div
+              class="reveal group flex flex-col gap-5 p-7 rounded-xl bg-white border border-gray-200 transition-all duration-300 hover:shadow-lg hover:border-primary-400 hover:-translate-y-1"
+              style={`transition-delay: ${i * 100}ms;`}
+            >
+              <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary-100 transition-colors duration-300 group-hover:bg-primary-200">
+                <Icon name={service.icon} size={24} class="text-primary-900" />
+              </div>
+
+              <h3 class="text-h2 font-semibold text-gray-800">{service.title}</h3>
+
+              <ul class="flex flex-col gap-3 flex-1">
+                {service.items.map((item) => (
+                  <li class="flex items-start gap-2.5">
+                    <Icon name="check_circle" size={20} class="text-success mt-0.5 shrink-0" />
+                    <span class="text-base text-gray-600 leading-relaxed">{item}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <a
+                href="/#contacto"
+                class="mt-auto inline-flex items-center gap-1.5 pt-3 text-body-sm font-semibold text-primary-900 hover:underline transition-colors"
+              >
+                Saber más
+                <Icon name="arrow_forward" size={16} />
+              </a>
+            </div>
+          ))}
+        </div>
+      </Container>
+    </Section>
+
+    <!-- ═══════ Atención Personalizada ═══════ -->
+    <Section id="nosotros" class="bg-white">
+      <Container>
+        <div class="reveal flex flex-col gap-4 mb-14 max-w-2xl">
+          <Badge>Atención Personalizada</Badge>
+          <h2 class="text-h1 font-bold text-gray-800">
+            Atención Flexible y Personalizada
+          </h2>
+          <p class="text-body-lg text-gray-500">
+            Entendemos las exigencias de los diferentes organismos de recaudación y control.
+            Nuestro equipo brinda soporte integral adaptándose a su ritmo, asegurando
+            cumplimiento normativo sin fricciones.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+          <div class="reveal flex items-start gap-5 p-6 rounded-xl border border-gray-200 bg-surface-50 transition-all duration-300 hover:shadow-md hover:border-primary-300">
+            <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary-100 shrink-0">
+              <Icon name="location_city" size={24} class="text-primary-900" />
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <h4 class="text-h3 font-semibold text-gray-800">Presencial en Oficinas</h4>
+              <p class="text-base text-gray-500 leading-relaxed">
+                Ubicación estratégica en Puerto Madero para reuniones personales y consultas presenciales.
+              </p>
+            </div>
+          </div>
+
+          <div class="reveal flex items-start gap-5 p-6 rounded-xl border border-gray-200 bg-surface-50 transition-all duration-300 hover:shadow-md hover:border-primary-300" style="transition-delay: 100ms;">
+            <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary-100 shrink-0">
+              <Icon name="devices" size={24} class="text-primary-900" />
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <h4 class="text-h3 font-semibold text-gray-800">Asesoramiento Remoto</h4>
+              <p class="text-base text-gray-500 leading-relaxed">
+                Sesiones virtuales y gestión digital para una atención ágil en todo el país.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <Button variant="primary" size="lg" href="/#contacto" icon="arrow_forward" iconPosition="right">
+            Coordinar una Entrevista
+          </Button>
+        </div>
+      </Container>
+    </Section>
+
+    <!-- ═══════ Socio Fundador ═══════ -->
+    <Section>
+      <Container>
+        <div class="reveal grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
+          <div class="lg:col-span-2 flex flex-col items-center lg:items-start gap-6">
+            <div class="w-44 h-44 rounded-full bg-gradient-to-br from-primary-200 to-primary-100 flex items-center justify-center ring-4 ring-primary-100 ring-offset-4 ring-offset-surface-50">
+              <Icon name="person" size={72} class="text-primary-700" />
+            </div>
+
+            <div class="flex flex-col items-center lg:items-start gap-1">
+              <h3 class="text-h2 font-bold text-gray-800">Alejandro Gonzalez Carbone</h3>
+              <span class="text-body-sm font-semibold text-primary-900 tracking-wide uppercase">Socio Fundador</span>
+            </div>
+
+            <div class="flex flex-col gap-3 w-full">
+              <div class="flex items-center gap-3 p-3.5 bg-white rounded-lg border border-gray-200 shadow-sm">
+                <Icon name="badge" size={20} class="text-primary-900 shrink-0" />
+                <span class="text-body-sm text-gray-700 font-medium">Contador Público T°90 F°26</span>
+              </div>
+              <div class="flex items-center gap-3 p-3.5 bg-white rounded-lg border border-gray-200 shadow-sm">
+                <Icon name="school" size={20} class="text-primary-900 shrink-0" />
+                <span class="text-body-sm text-gray-700 font-medium">Lic. en Administración Tomo 8 - Folio 52</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-3 flex flex-col gap-8 justify-center">
+            <div class="relative">
+              <span class="absolute -top-6 -left-2 text-7xl font-black text-primary-200 select-none leading-none" aria-hidden="true">"</span>
+              <blockquote class="text-h2 md:text-h1 font-medium text-gray-700 leading-relaxed border-l-4 border-primary-900 pl-8">
+                Nuestro compromiso es brindar claridad en un entorno fiscal complejo.
+                Simplificamos sus obligaciones ante los diferentes organismos de control
+                para que usted pueda proyectar a futuro con seguridad.
+              </blockquote>
+            </div>
+
+            <div class="flex items-center gap-3 pl-8 text-body-sm">
+              <span class="inline-flex items-center gap-1.5 text-primary-900 font-semibold">
+                <Icon name="verified" size={18} />
+                Matrículas Profesionales
+              </span>
+              <span class="text-gray-300">|</span>
+              <span class="text-gray-500">Disponible para consultas</span>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </Section>
+
+    <!-- ═══════ Contacto ═══════ -->
+    <Section id="contacto" class="bg-white">
+      <Container>
+        <div class="reveal flex flex-col gap-4 mb-14 max-w-2xl">
+          <Badge>Contacto Directo</Badge>
+          <h2 class="text-h1 font-bold text-gray-800">
+            Hablemos sobre su situación impositiva.
+          </h2>
+          <p class="text-body-lg text-gray-500">
+            Estamos listos para optimizar su estrategia fiscal. Visítenos en Puerto Madero
+            o escríbanos para coordinar una reunión.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-12">
+          <div class="reveal lg:col-span-2 flex flex-col gap-8">
+            {contactInfo.map((info) => (
+              <div class="flex items-start gap-4">
+                <div class="flex h-11 w-11 items-center justify-center rounded-lg bg-primary-100 shrink-0">
+                  <Icon name={info.icon} size={22} class="text-primary-900" />
+                </div>
+                <div class="flex flex-col gap-0.5">
+                  <span class="text-xs font-semibold text-gray-400 uppercase tracking-widest">
+                    {info.label}
+                  </span>
+                  {info.href ? (
+                    <a
+                      href={info.href}
+                      class="text-base font-medium text-gray-800 hover:text-primary-900 transition-colors"
+                    >
+                      {info.value}
+                    </a>
+                  ) : (
+                    <span class="text-base font-medium text-gray-800">{info.value}</span>
+                  )}
+                  {info.sub && (
+                    <span class="text-body-sm text-gray-500">{info.sub}</span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div class="reveal lg:col-span-3">
+            <form class="flex flex-col gap-5 bg-surface-50 p-8 rounded-xl border border-gray-200">
+              <Select
+                label="Tipo de Consulta"
+                name="tipo"
+                options={consultaOptions}
+                placeholder="Seleccione..."
+                required
+              />
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <Input label="Nombre / Firma" name="nombre" placeholder="Su nombre" required />
+                <Input label="Apellido / Razón Social" name="apellido" placeholder="Su apellido o razón social" required />
+              </div>
+
+              <Input
+                label="Correo Electrónico de Contacto"
+                name="email"
+                type="email"
+                placeholder="email@ejemplo.com"
+                required
+              />
+
+              <div class="flex flex-col gap-1.5">
+                <label for="textarea-detalle" class="text-body-sm font-medium text-gray-800">
+                  Detalle de su Consulta
+                </label>
+                <textarea
+                  id="textarea-detalle"
+                  name="detalle"
+                  rows="4"
+                  placeholder="Describa brevemente su consulta..."
+                  class="w-full px-4 py-2.5 rounded-DEFAULT border border-gray-300 bg-white text-gray-800 placeholder:text-gray-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-900/20 focus:border-primary-900 hover:border-gray-400 resize-none"
+                ></textarea>
+              </div>
+
+              <Button variant="primary" size="lg" type="submit" icon="send" iconPosition="right" class="w-full md:w-auto md:self-start">
+                Enviar Mensaje
+              </Button>
+
+              <p class="text-xs text-gray-400">
+                Sus datos están protegidos bajo nuestra política de confidencialidad estricta.
+              </p>
+            </form>
+          </div>
+        </div>
+      </Container>
+    </Section>
+  </main>
+
+  <Footer />
+  <WhatsAppFAB />
+</BaseLayout>
+
+<script>
+  function initReveal() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
+    );
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+  }
+
+  initReveal();
+  document.addEventListener('astro:after-swap', initReveal);
+</script>

@@ -1,0 +1,61 @@
+---
+interface Props {
+  label: string;
+  name: string;
+  type?: string;
+  placeholder?: string;
+  required?: boolean;
+  error?: string;
+  helperText?: string;
+  class?: string;
+}
+
+const {
+  label,
+  name,
+  type = 'text',
+  placeholder = '',
+  required = false,
+  error,
+  helperText,
+  class: className = '',
+} = Astro.props;
+
+const inputId = `input-${name}`;
+const hasError = !!error;
+---
+
+<div class:list={['flex flex-col gap-1.5', className]}>
+  <label for={inputId} class="text-body-sm font-medium text-gray-800">
+    {label}
+    {required && <span class="text-error ml-0.5">*</span>}
+  </label>
+  <input
+    id={inputId}
+    name={name}
+    type={type}
+    placeholder={placeholder}
+    required={required}
+    aria-invalid={hasError}
+    aria-describedby={error ? `${inputId}-error` : helperText ? `${inputId}-helper` : undefined}
+    class:list={[
+      'w-full px-4 py-2.5 rounded-DEFAULT border bg-white text-gray-800 placeholder:text-gray-400',
+      'transition-colors duration-200',
+      'focus:outline-none focus:ring-2 focus:ring-primary-900/20 focus:border-primary-900',
+      hasError
+        ? 'border-error focus:ring-error/20 focus:border-error'
+        : 'border-gray-300 hover:border-gray-400',
+    ]}
+  />
+  {error && (
+    <p id={`${inputId}-error`} class="flex items-center gap-1 text-body-sm text-error">
+      <span class="material-symbols-outlined" style="font-size: 16px;" aria-hidden="true">error</span>
+      {error}
+    </p>
+  )}
+  {!error && helperText && (
+    <p id={`${inputId}-helper`} class="text-body-sm text-gray-500">
+      {helperText}
+    </p>
+  )}
+</div>

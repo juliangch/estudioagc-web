@@ -1,0 +1,106 @@
+---
+import Icon from '../ui/Icon.astro';
+import Button from '../ui/Button.astro';
+
+interface NavLink {
+  label: string;
+  href: string;
+}
+
+const links: NavLink[] = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Servicios', href: '/#servicios' },
+  { label: 'Nosotros', href: '/#nosotros' },
+  { label: 'Contacto', href: '/#contacto' },
+];
+---
+
+<div
+  class="fixed inset-0 z-[60] pointer-events-none"
+  data-mobile-menu
+  aria-hidden="true"
+>
+  <!-- Backdrop -->
+  <div
+    class="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300"
+    data-mobile-menu-backdrop
+  ></div>
+
+  <!-- Drawer panel -->
+  <nav
+    class="absolute top-0 right-0 h-full w-72 max-w-[80vw] bg-white shadow-lg translate-x-full transition-transform duration-300 flex flex-col"
+    data-mobile-menu-panel
+    aria-label="Menú móvil"
+  >
+    <div class="flex items-center justify-between px-6 h-16 border-b border-gray-200">
+      <span class="text-primary-900 font-bold text-lg">Menú</span>
+      <button
+        class="flex items-center justify-center w-10 h-10 text-gray-500 hover:text-gray-800"
+        aria-label="Cerrar menú"
+        data-mobile-menu-close
+      >
+        <Icon name="close" size={24} />
+      </button>
+    </div>
+
+    <ul class="flex flex-col py-4" role="list">
+      {links.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class="block px-6 py-3 text-base font-medium text-gray-700 hover:bg-surface-50 hover:text-primary-900 transition-colors"
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="mt-auto p-6 border-t border-gray-200">
+      <Button variant="primary" href="/#contacto" class="w-full">
+        Consulta gratuita
+      </Button>
+    </div>
+  </nav>
+</div>
+
+<script>
+  function initMobileMenu() {
+    const menu = document.querySelector('[data-mobile-menu]') as HTMLElement | null;
+    const backdrop = document.querySelector('[data-mobile-menu-backdrop]') as HTMLElement | null;
+    const panel = document.querySelector('[data-mobile-menu-panel]') as HTMLElement | null;
+    const toggleBtn = document.querySelector('[data-mobile-menu-toggle]') as HTMLElement | null;
+    const closeBtn = document.querySelector('[data-mobile-menu-close]') as HTMLElement | null;
+
+    if (!menu || !backdrop || !panel || !toggleBtn || !closeBtn) return;
+
+    function open() {
+      menu!.classList.remove('pointer-events-none');
+      menu!.setAttribute('aria-hidden', 'false');
+      backdrop!.classList.replace('opacity-0', 'opacity-100');
+      panel!.classList.replace('translate-x-full', 'translate-x-0');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function close() {
+      backdrop!.classList.replace('opacity-100', 'opacity-0');
+      panel!.classList.replace('translate-x-0', 'translate-x-full');
+      document.body.style.overflow = '';
+      setTimeout(() => {
+        menu!.classList.add('pointer-events-none');
+        menu!.setAttribute('aria-hidden', 'true');
+      }, 300);
+    }
+
+    toggleBtn.addEventListener('click', open);
+    closeBtn.addEventListener('click', close);
+    backdrop.addEventListener('click', close);
+
+    menu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', close);
+    });
+  }
+
+  initMobileMenu();
+  document.addEventListener('astro:after-swap', initMobileMenu);
+</script>
