@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/layout/Navbar.astro';
 import MobileDrawer from '../components/layout/MobileDrawer.astro';
@@ -11,10 +12,11 @@ import Icon from '../components/ui/Icon.astro';
 import Badge from '../components/ui/Badge.astro';
 import Input from '../components/ui/Input.astro';
 import Select from '../components/ui/Select.astro';
+import heroBackground from '../assets/heading_background_1.jpg';
 
 const stats = [
-  { value: '20+', label: 'Años de Trayectoria' },
-  { value: '500+', label: 'Clientes Activos' },
+  { value: '50+', label: 'Años de Trayectoria' },
+  { value: '100+', label: 'Clientes Satisfechos' },
   { value: '$2B+', label: 'Activos Auditados' },
   { value: '100%', label: 'Efectividad Fiscal' },
 ];
@@ -84,44 +86,53 @@ const consultaOptions = [
 
   <main>
     <!-- ═══════ Hero ═══════ -->
-    <Section id="inicio" class="relative bg-white overflow-hidden">
-      <div class="hero-pattern" aria-hidden="true"></div>
+    <section id="inicio" class="relative min-h-[85vh] flex flex-col justify-center overflow-hidden">
+      <Image
+        src={heroBackground}
+        alt=""
+        class="absolute inset-0 w-full h-full object-cover"
+        widths={[768, 1280, 1920, 2560]}
+        sizes="100vw"
+        loading="eager"
+      />
+      <div class="absolute inset-0 bg-gray-900/70 backdrop-blur-[2px]" aria-hidden="true"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent opacity-90" aria-hidden="true"></div>
 
-      <Container class="relative z-10 hero-stagger flex flex-col items-center text-center gap-6">
-        <Badge variant="new">Excelencia Profesional</Badge>
+      <Container class="relative z-10 hero-stagger flex flex-col items-center text-center gap-6 pt-32 pb-10 md:pt-36 md:pb-16">
 
-        <h1 class="text-display font-extrabold text-primary-900 max-w-4xl">
-          Excelencia Contable para Empresas&nbsp;e&nbsp;Individuos
+        <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white max-w-5xl leading-[1.1] drop-shadow-sm">
+          Excelencia Contable para<br class="hidden md:block" />
+          <span class="hero-gradient-text">Empresas&nbsp;e&nbsp;Individuos</span>
         </h1>
 
-        <p class="text-body-lg text-gray-500 max-w-2xl">
+        <p class="text-lg md:text-xl text-gray-200 max-w-3xl drop-shadow-sm opacity-90 leading-relaxed font-medium">
           Soluciones estratégicas en Auditoría y Consultoría Corporativa.
           Gestión experta en impuestos y presentaciones ante organismos de control para personas.
         </p>
 
-        <div class="flex flex-wrap gap-4 justify-center mt-2">
-          <Button variant="primary" size="lg" href="/#servicios" icon="arrow_forward" iconPosition="right">
-            Servicios para Empresas
+        <div class="flex flex-col sm:flex-row gap-5 justify-center mt-4">
+          <Button variant="primary" size="lg" href="/#servicios" icon="arrow_forward" iconPosition="right" class="shadow-[0_0_30px_rgba(10,89,108,0.3)] hover:shadow-[0_0_40px_rgba(10,89,108,0.5)]">
+            Conozca nuestros servicios
           </Button>
-          <Button variant="outline" size="lg" href="/#contacto">
-            Servicios para Individuos
+          <Button variant="primary" size="lg" href="/#contacto" icon="calendar_month" iconPosition='right' class="shadow-[0_0_30px_rgba(10,89,108,0.3)] hover:shadow-[0_0_40px_rgba(10,89,108,0.5)]">
+            Agende una consulta
           </Button>
         </div>
       </Container>
 
-      <Container class="relative z-10 mt-16">
+      <Container class="relative z-10 pb-12 md:pb-16">
         <div
-          class="reveal grid grid-cols-2 md:grid-cols-4 gap-px rounded-xl overflow-hidden bg-primary-900 shadow-lg"
+          class="reveal grid grid-cols-2 md:grid-cols-4 gap-px rounded-xl overflow-hidden bg-white/10 backdrop-blur-md shadow-lg border border-white/10"
         >
           {stats.map((s) => (
-            <div class="flex flex-col items-center gap-1 py-8 px-4 bg-primary-900">
+            <div class="flex flex-col items-center gap-1 py-8 px-4">
               <span class="text-3xl md:text-4xl font-extrabold tracking-tight text-white">{s.value}</span>
               <span class="text-xs md:text-sm text-white/60 font-medium text-center">{s.label}</span>
             </div>
           ))}
         </div>
       </Container>
-    </Section>
+    </section>
 
     <!-- ═══════ Servicios ═══════ -->
     <Section id="servicios">

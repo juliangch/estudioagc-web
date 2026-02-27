@@ -85,14 +85,12 @@
   }
 }
 
-/* ── Hero background pattern ── */
-.hero-pattern {
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle, var(--color-primary-300) 1px, transparent 1px);
-  background-size: 28px 28px;
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 70%);
+/* ── Hero gradient text effect ── */
+.hero-gradient-text {
+  background: linear-gradient(to right, var(--color-primary-900), #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* ── Scroll-reveal animations ── */
