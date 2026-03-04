@@ -5,6 +5,7 @@ interface Props {
   type?: string;
   placeholder?: string;
   required?: boolean;
+  autocomplete?: string;
   error?: string;
   helperText?: string;
   class?: string;
@@ -16,6 +17,7 @@ const {
   type = 'text',
   placeholder = '',
   required = false,
+  autocomplete,
   error,
   helperText,
   class: className = '',
@@ -33,9 +35,10 @@ const hasError = !!error;
   <input
     id={inputId}
     name={name}
-    type={type}
+    type={type as never}
     placeholder={placeholder}
     required={required}
+    autocomplete={autocomplete}
     aria-invalid={hasError}
     aria-describedby={error ? `${inputId}-error` : helperText ? `${inputId}-helper` : undefined}
     class:list={[

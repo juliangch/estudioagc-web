@@ -14,12 +14,6 @@ import Input from '../components/ui/Input.astro';
 import Select from '../components/ui/Select.astro';
 import heroBackground from '../assets/heading_background_1.jpg';
 
-const stats = [
-  { value: '50+', label: 'Años de Trayectoria' },
-  { value: '100+', label: 'Clientes Satisfechos' },
-  { value: '$2B+', label: 'Activos Auditados' },
-  { value: '100%', label: 'Efectividad Fiscal' },
-];
 
 const services = [
   {
@@ -47,7 +41,7 @@ const services = [
     items: [
       'Defensa técnica en recursos administrativos y ante el Tribunal Fiscal.',
       'Atención especializada ante requerimientos e inspecciones.',
-      'Liquidación de impuestos nacionales, provinciales y municipales (ARCA).',
+      'Liquidación de impuestos nacionales, provinciales y municipales.',
       'Planeamiento fiscal preventivo para personas jurídicas y humanas.',
     ],
   },
@@ -120,16 +114,23 @@ const consultaOptions = [
         </div>
       </Container>
 
-      <Container class="relative z-10 pb-12 md:pb-16">
-        <div
-          class="reveal grid grid-cols-2 md:grid-cols-4 gap-px rounded-xl overflow-hidden bg-white/10 backdrop-blur-md shadow-lg border border-white/10"
-        >
-          {stats.map((s) => (
-            <div class="flex flex-col items-center gap-1 py-8 px-4">
-              <span class="text-3xl md:text-4xl font-extrabold tracking-tight text-white">{s.value}</span>
-              <span class="text-xs md:text-sm text-white/60 font-medium text-center">{s.label}</span>
-            </div>
-          ))}
+    </section>
+
+    <!-- ═══════ Trayectoria ═══════ -->
+    <section class="bg-primary-900 relative overflow-hidden">
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_120%_200%_at_50%_50%,rgba(255,255,255,0.06),transparent)]" aria-hidden="true"></div>
+      <Container class="relative py-8 md:py-10">
+        <div class="reveal flex items-center justify-center gap-6 md:gap-10">
+          <div class="hidden sm:block h-px flex-1 max-w-[100px] bg-white/20" aria-hidden="true"></div>
+          <div class="flex flex-col items-center gap-1.5 text-center">
+            <span class="text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-none [font-variant-numeric:tabular-nums]">
+              50+
+            </span>
+            <span class="text-sm md:text-base text-white/70 font-medium tracking-[0.2em] uppercase text-pretty">
+              Años de trayectoria ininterrumpida
+            </span>
+          </div>
+          <div class="hidden sm:block h-px flex-1 max-w-[100px] bg-white/20" aria-hidden="true"></div>
         </div>
       </Container>
     </section>
@@ -151,7 +152,7 @@ const consultaOptions = [
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {services.map((service, i) => (
             <div
-              class="reveal group flex flex-col gap-5 p-7 rounded-xl bg-white border border-gray-200 transition-all duration-300 hover:shadow-lg hover:border-primary-400 hover:-translate-y-1"
+              class="reveal group flex flex-col gap-5 p-7 rounded-xl bg-white border border-gray-200 transition-[box-shadow,border-color,transform] duration-300 hover:shadow-lg hover:border-primary-400 hover:-translate-y-1"
               style={`transition-delay: ${i * 100}ms;`}
             >
               <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary-100 transition-colors duration-300 group-hover:bg-primary-200">
@@ -198,19 +199,19 @@ const consultaOptions = [
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-          <div class="reveal flex items-start gap-5 p-6 rounded-xl border border-gray-200 bg-surface-50 transition-all duration-300 hover:shadow-md hover:border-primary-300">
+          <div class="reveal flex items-start gap-5 p-6 rounded-xl border border-gray-200 bg-surface-50 transition-[box-shadow,border-color] duration-300 hover:shadow-md hover:border-primary-300">
             <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary-100 shrink-0">
               <Icon name="location_city" size={24} class="text-primary-900" />
             </div>
             <div class="flex flex-col gap-1.5">
               <h4 class="text-h3 font-semibold text-gray-800">Presencial en Oficinas</h4>
               <p class="text-base text-gray-500 leading-relaxed">
-                Ubicación estratégica en Puerto Madero para reuniones personales y consultas presenciales.
+                Ubicación en la Ciudad de Buenos Aires para reuniones personales y consultas presenciales.
               </p>
             </div>
           </div>
 
-          <div class="reveal flex items-start gap-5 p-6 rounded-xl border border-gray-200 bg-surface-50 transition-all duration-300 hover:shadow-md hover:border-primary-300" style="transition-delay: 100ms;">
+          <div class="reveal flex items-start gap-5 p-6 rounded-xl border border-gray-200 bg-surface-50 transition-[box-shadow,border-color] duration-300 hover:shadow-md hover:border-primary-300" style="transition-delay: 100ms;">
             <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary-100 shrink-0">
               <Icon name="devices" size={24} class="text-primary-900" />
             </div>
@@ -241,7 +242,7 @@ const consultaOptions = [
             </div>
 
             <div class="flex flex-col items-center lg:items-start gap-1">
-              <h3 class="text-h2 font-bold text-gray-800">Alejandro Gonzalez Carbone</h3>
+              <h3 class="text-h2 font-bold text-gray-800">Dr. Alejandro Gonz&aacute;lez Carbone</h3>
               <span class="text-body-sm font-semibold text-primary-900 tracking-wide uppercase">Socio Fundador</span>
             </div>
 
@@ -266,15 +267,6 @@ const consultaOptions = [
                 para que usted pueda proyectar a futuro con seguridad.
               </blockquote>
             </div>
-
-            <div class="flex items-center gap-3 pl-8 text-body-sm">
-              <span class="inline-flex items-center gap-1.5 text-primary-900 font-semibold">
-                <Icon name="verified" size={18} />
-                Matrículas Profesionales
-              </span>
-              <span class="text-gray-300">|</span>
-              <span class="text-gray-500">Disponible para consultas</span>
-            </div>
           </div>
         </div>
       </Container>
@@ -289,8 +281,7 @@ const consultaOptions = [
             Hablemos sobre su situación impositiva.
           </h2>
           <p class="text-body-lg text-gray-500">
-            Estamos listos para optimizar su estrategia fiscal. Visítenos en Puerto Madero
-            o escríbanos para coordinar una reunión.
+            Estamos listos para optimizar su estrategia fiscal. Escr&iacute;banos o agende una primera reuni&oacute;n con nosotros.
           </p>
         </div>
 
@@ -334,8 +325,8 @@ const consultaOptions = [
               />
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                <Input label="Nombre / Firma" name="nombre" placeholder="Su nombre" required />
-                <Input label="Apellido / Razón Social" name="apellido" placeholder="Su apellido o razón social" required />
+                <Input label="Nombre / Firma" name="nombre" placeholder="Su nombre" autocomplete="given-name" required />
+                <Input label="Apellido / Razón Social" name="apellido" placeholder="Su apellido o razón social" autocomplete="family-name" required />
               </div>
 
               <Input
@@ -343,6 +334,7 @@ const consultaOptions = [
                 name="email"
                 type="email"
                 placeholder="email@ejemplo.com"
+                autocomplete="email"
                 required
               />
 
@@ -354,7 +346,7 @@ const consultaOptions = [
                   id="textarea-detalle"
                   name="detalle"
                   rows="4"
-                  placeholder="Describa brevemente su consulta..."
+                  placeholder="Describa brevemente su consulta…"
                   class="w-full px-4 py-2.5 rounded-DEFAULT border border-gray-300 bg-white text-gray-800 placeholder:text-gray-400 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-900/20 focus:border-primary-900 hover:border-gray-400 resize-none"
                 ></textarea>
               </div>
