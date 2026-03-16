@@ -4,14 +4,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/layout/Navbar.astro';
 import MobileDrawer from '../components/layout/MobileDrawer.astro';
 import Footer from '../components/layout/Footer.astro';
-import WhatsAppFAB from '../components/layout/WhatsAppFAB.astro';
+//import WhatsAppFAB from '../components/layout/WhatsAppFAB.astro';
 import Container from '../components/layout/Container.astro';
 import Section from '../components/layout/Section.astro';
 import Button from '../components/ui/Button.astro';
 import Icon from '../components/ui/Icon.astro';
-import Badge from '../components/ui/Badge.astro';
 import Input from '../components/ui/Input.astro';
 import heroBackground from '../assets/heading_background_1.jpg';
+import perfilAlejandro from '../assets/alejandro-perfil-edited.png';
 
 
 const services = [
@@ -50,8 +50,8 @@ const contactInfo = [
   {
     icon: 'mail',
     label: 'Email',
-    value: 'contacto@estudioagc.com',
-    href: 'mailto:contacto@estudioagc.com',
+    value: 'contacto@estudio-agc.com.ar',
+    href: 'mailto:contacto@estudio-agc.com.ar',
   },
   {
     icon: 'call',
@@ -134,7 +134,6 @@ const contactInfo = [
     <Section id="servicios">
       <Container>
         <div class="reveal flex flex-col gap-4 mb-14 max-w-2xl">
-          <Badge>Servicios Corporativos</Badge>
           <h2 class="text-h1 font-bold text-gray-800">
             Soluciones Contables y Estrategia Fiscal Integral
           </h2>
@@ -182,7 +181,6 @@ const contactInfo = [
     <Section id="nosotros" class="bg-white">
       <Container>
         <div class="reveal flex flex-col gap-4 mb-14 max-w-2xl">
-          <Badge>Atención Personalizada</Badge>
           <h2 class="text-h1 font-bold text-gray-800">
             Atención Flexible y Personalizada
           </h2>
@@ -242,10 +240,14 @@ const contactInfo = [
               <!-- Outer ring -->
               <div class="absolute inset-0 rounded-full ring-1 ring-white/10 ring-offset-[10px] ring-offset-primary-900"></div>
               <!-- Avatar circle -->
-              <div class="w-40 h-40 rounded-full bg-primary-800 flex items-center justify-center">
-                <div class="w-28 h-28 rounded-full bg-primary-700 flex items-center justify-center">
-                  <Icon name="person" size={52} class="text-white/40" />
-                </div>
+              <div class="w-40 h-40 rounded-full overflow-hidden">
+                <Image
+                  src={perfilAlejandro}
+                  alt="Dr. Alejandro González Carbone"
+                  class="w-full h-full object-cover object-center"
+                  widths={[160, 320]}
+                  sizes="160px"
+                />
               </div>
             </div>
             <div class="flex flex-col items-center gap-1.5">
@@ -301,7 +303,6 @@ const contactInfo = [
           <!-- Left column: heading + contact info -->
           <div class="reveal flex flex-col gap-10">
             <div class="flex flex-col gap-4">
-              <Badge>Contacto</Badge>
               <h2 class="text-h1 font-bold text-gray-800">
                 Hablemos sobre su situación impositiva.
               </h2>
@@ -401,7 +402,7 @@ const contactInfo = [
   </main>
 
   <Footer />
-  <WhatsAppFAB />
+  <!-- <WhatsAppFAB /> -->
 </BaseLayout>
 
 <script>
