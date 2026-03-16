@@ -341,7 +341,7 @@ const contactInfo = [
 
           <!-- Right column: form -->
           <div class="reveal">
-            <form class="flex flex-col gap-5 bg-surface-50 p-8 rounded-xl border border-gray-200">
+            <form id="contactForm" class="flex flex-col gap-5 bg-surface-50 p-8 rounded-xl border border-gray-200">
               <Input
                 label="Nombre"
                 name="nombre"
@@ -385,6 +385,8 @@ const contactInfo = [
                 Enviar consulta
               </Button>
 
+              <p id="form-msg" style="display:none" class="text-sm"></p>
+
               <p class="text-xs text-gray-400">
                 Sus datos están protegidos bajo nuestra política de confidencialidad.
               </p>
@@ -419,4 +421,44 @@ const contactInfo = [
 
   initReveal();
   document.addEventListener('astro:after-swap', initReveal);
+
+  const form = document.getElementById('contactForm') as HTMLFormElement;
+  const msg = document.getElementById('form-msg') as HTMLParagraphElement;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nombre: (form.elements.namedItem('nombre') as HTMLInputElement).value,
+          razon_social: (form.elements.namedItem('razon_social') as HTMLInputElement).value,
+          email: (form.elements.namedItem('email') as HTMLInputElement).value,
+          motivo: (form.elements.namedItem('motivo') as HTMLTextAreaElement).value,
+        }),
+      });
+
+      if (res.ok) {
+        msg.textContent = '¡Consulta enviada! Le responderemos a la brevedad.';
+        msg.className = 'text-sm text-green-600';
+        form.reset();
+      } else {
+        msg.textContent = 'Hubo un error al enviar. Intentá de nuevo.';
+        msg.className = 'text-sm text-red-600';
+      }
+    } catch (err) {
+      console.error(err);
+      msg.textContent = 'Error de conexión. Intentá de nuevo.';
+      msg.className = 'text-sm text-red-600';
+    } finally {
+      msg.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Enviar consulta';
+    }
+  });
 </script>
