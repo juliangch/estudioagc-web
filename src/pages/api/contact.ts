@@ -2,7 +2,20 @@ export const prerender = false;
 
 export const POST = async ({ request }: { request: Request }) => {
     const text = await request.text();
-    const { nombre, razon_social, email, motivo } = JSON.parse(text);
+    const { nombre, razon_social, email, motivo, recaptchaToken } = JSON.parse(text);
+
+    const verify = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `secret=${import.meta.env.RECAPTCHA_SERVER_PRIVATE_KEY}&response=${recaptchaToken}`,
+      });
+      const { success } = await verify.json();
+      
+      if (!success) {
+        return new Response(JSON.stringify({ error: 'reCAPTCHA inválido' }), { status: 400 });
+    }
+
+
     const res = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {

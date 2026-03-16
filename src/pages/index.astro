@@ -381,6 +381,8 @@ const contactInfo = [
                 ></textarea>
               </div>
 
+              <div class="g-recaptcha" data-sitekey="6Lflo4ssAAAAACE-OL-y9UZSJn9nf3jgWZqPJCQO"></div>
+
               <Button variant="primary" size="lg" type="submit" icon="send" iconPosition="right" class="w-full md:w-auto md:self-start mt-1">
                 Enviar consulta
               </Button>
@@ -428,6 +430,15 @@ const contactInfo = [
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    const recaptchaToken = (window as any).grecaptcha?.getResponse();
+    if (!recaptchaToken) {
+      msg.textContent = 'Por favor completá el reCAPTCHA.';
+      msg.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Enviar consulta';
+      return;
+    }
+
     const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
     btn.disabled = true;
     btn.textContent = 'Enviando...';
@@ -440,6 +451,7 @@ const contactInfo = [
           razon_social: (form.elements.namedItem('razon_social') as HTMLInputElement).value,
           email: (form.elements.namedItem('email') as HTMLInputElement).value,
           motivo: (form.elements.namedItem('motivo') as HTMLTextAreaElement).value,
+          recaptchaToken,
         }),
       });
 
@@ -447,6 +459,7 @@ const contactInfo = [
         msg.textContent = '¡Consulta enviada! Le responderemos a la brevedad.';
         msg.className = 'text-sm text-green-600';
         form.reset();
+        (window as any).grecaptcha.reset();
       } else {
         msg.textContent = 'Hubo un error al enviar. Intentá de nuevo.';
         msg.className = 'text-sm text-red-600';
