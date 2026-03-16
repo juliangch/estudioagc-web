@@ -40,14 +40,15 @@ const canonicalURL = Astro.site
     />
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-    <!-- Google Tag Manager -->
-    <script>(function(w: any,d: any,s: any,l: any,i: any){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f: any=d.getElementsByTagName(s)[0],
-      j: any=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode?.insertBefore(j,f);
-      })(window as any,document as any,'script' as any,'dataLayer' as any,'GTM-P7Q6S296' as any);
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TV3JRRBS0T"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-TV3JRRBS0T');
     </script>
-    <!-- End Google Tag Manager -->
 
     <title>{title}</title>
   </head>

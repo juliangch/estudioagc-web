@@ -11,7 +11,6 @@ import Button from '../components/ui/Button.astro';
 import Icon from '../components/ui/Icon.astro';
 import Input from '../components/ui/Input.astro';
 import heroBackground from '../assets/heading_background_1.jpg';
-import perfilAlejandro from '../assets/alejandro-perfil-edited.png';
 
 
 const services = [
@@ -241,12 +240,14 @@ const contactInfo = [
               <div class="absolute inset-0 rounded-full ring-1 ring-white/10 ring-offset-[10px] ring-offset-primary-900"></div>
               <!-- Avatar circle -->
               <div class="w-40 h-40 rounded-full overflow-hidden">
-                <Image
-                  src={perfilAlejandro}
+                <img
+                  src="/alejandro-perfil-edited.png"
                   alt="Dr. Alejandro González Carbone"
                   class="w-full h-full object-cover object-center"
-                  widths={[160, 320]}
-                  sizes="160px"
+                  width="160"
+                  height="160"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
             </div>
